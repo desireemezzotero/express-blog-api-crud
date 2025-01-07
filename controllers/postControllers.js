@@ -1,7 +1,12 @@
 const posts = require ('../data/posts');
 
 const index = (req,res) => {
-  res.json(posts)
+  let postTags = posts;
+
+  if (req.query.tags) {
+    posts.filter (post => post.tags == req.query.tags);
+  }
+  res.json(postTags)
 };
 
 const show = (req,res) => {
@@ -15,7 +20,7 @@ const show = (req,res) => {
       error: 'not found'
     })
   }
-  res.json(posts)
+  res.json(post)
 };
 
 const store = (req,res) => {
@@ -36,13 +41,15 @@ const destory = (req, res) => {
   if(!post){
     res.status(404)
     return res.json({
-      message: 'partecipante non trovato',
+      message: 'post non trovato',
       status : '404',
       error : 'not found'
      })
    };
   
-  post.splice(posts.indexOf(post),1)
+  posts.splice(posts.indexOf(post),1)
+  res.sendStatus(204)
+  console.log(posts)
 };
 
 module.exports = {
