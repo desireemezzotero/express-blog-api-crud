@@ -1,12 +1,21 @@
 const posts = require ('../data/posts');
 
-
 const index = (req,res) => {
-  res.send('restituisce la lista dei post')
+  res.json(posts)
 };
 
 const show = (req,res) => {
-  res.send(`restituisce il partecipante richiesto con id` + req.params.id)
+  const post = posts.find(post => post.id == req.params.id)
+  
+  if(!post) {
+    res.status(404);
+    return res.json({
+      message: 'post non trovato',
+      status: 404,
+      error: 'not found'
+    })
+  }
+  res.json(posts)
 };
 
 const store = (req,res) => {
@@ -22,7 +31,18 @@ const modify = (req, res) => {
 };
 
 const destory = (req, res) => {
-  res.send('elimina il post con id' + req.params.id)
+  const post = posts.find(post => post.id == req.params.id)
+
+  if(!post){
+    res.status(404)
+    return res.json({
+      message: 'partecipante non trovato',
+      status : '404',
+      error : 'not found'
+     })
+   };
+  
+  post.splice(posts.indexOf(post),1)
 };
 
 module.exports = {
