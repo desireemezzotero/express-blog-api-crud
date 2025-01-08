@@ -37,14 +37,43 @@ const store = (req,res) => {
   posts.push(newPost)
 
   res.json (posts)
+  console.log(posts)
 }
 
 const update = (req, res) => {
-  res.send(`modica il post con id` + req.params.id)
+  /* creo un id */
+  const id = req.params.id;
+  /* prendo l'elemento */
+  const post = posts.find(post => post.id == id);
+
+  if(!post) {
+    res.status(404)
+    return res.json({
+      message:'nessun post trovato',
+      status : 404,
+      error: 'Not Found'
+    })
+  }
+  /* aggiorniamo le proprietà */
+  for(let key in req.body){
+    post[key] = req.body[key]
+  }
+  
+  res.json(posts)
 }
 
 const modify = (req, res) => {
-  res.send ('modifico parzialmente un post' + req.params.id)
+    /* creo un id */
+    const id = req.params.id;
+    /* prendo l'elemento */
+    const post = posts.find(post => post.id == id);
+  
+    /* aggiorniamo le proprietà */
+    for(let key in req.body){
+      post[key] = req.body[key]
+    }
+    
+    res.json(posts)
 };
 
 const destory = (req, res) => {
