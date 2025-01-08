@@ -4,7 +4,7 @@ const index = (req,res) => {
   let postTags = posts;
 
   if (req.query.tags) {
-    posts.filter (post => post.tags == req.query.tags);
+    postTags = posts.filter (post => post.tags.includes( req.query.tags));
   }
   res.json(postTags)
 };
