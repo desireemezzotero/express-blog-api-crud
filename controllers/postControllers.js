@@ -24,7 +24,19 @@ const show = (req,res) => {
 };
 
 const store = (req,res) => {
-  res.send ('aggiunge un nuovo post')
+  /* creo un nuovo id */
+  const id = posts.at(-1).id + 1
+
+  /* creo un nuovo oggetto */
+  const newPost = {
+    id,
+    ... req.body
+  }
+
+  /* pusho nel vecchio array il nuovo oggetto */
+  posts.push(newPost)
+
+  res.json (posts)
 }
 
 const update = (req, res) => {
