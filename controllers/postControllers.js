@@ -1,6 +1,8 @@
 const posts = require ('../data/posts');
 
 const index = (req,res) => {
+ /* throw new Error('errore personalizzato') */
+
   let postTags = posts;
 
   if (req.query.tags) {
