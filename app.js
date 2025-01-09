@@ -1,5 +1,6 @@
 const express = require ('express');
 const postRouter = require ('./router/posts')
+const notFound = require('./middleware/notFound')
 const app = express();
 const port = 3000
 
@@ -10,6 +11,8 @@ app.get('/', (req,res) => {
 });
 
 app.use('/posts', postRouter);
+
+app.use(notFound)
 
 app.listen(port, () => {
   console.log('resto in ascolto alla porta 3000')
