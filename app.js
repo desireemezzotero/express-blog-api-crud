@@ -15,7 +15,7 @@ app.use('/posts', postRouter);
 
 app.use(errorHandler);
 
-app.use(notFound)
+app.use(notFound);
 
 app.listen(port, () => {
   console.log('resto in ascolto alla porta 3000')
